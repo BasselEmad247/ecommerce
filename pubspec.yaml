@@ -37,6 +37,7 @@ dependencies:
   bloc: ^7.2.1
   flutter_bloc: ^7.3.0
   sqflite: ^2.0.0+4
+  http:
 
 dev_dependencies:
   flutter_test:
