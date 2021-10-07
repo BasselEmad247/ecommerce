@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
           return Text('${snapshot.error}');
         }
 
-        return const CircularProgressIndicator();
+        return Center(child: const CircularProgressIndicator());
       },
     );
   }

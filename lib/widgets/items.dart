@@ -15,7 +15,7 @@ class Items extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
+            Radius.circular(10.0),
           ),
         ),
         child: Column(
