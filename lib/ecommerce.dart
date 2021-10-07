@@ -22,8 +22,10 @@ class Ecommerce extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
               items: const [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-                BottomNavigationBarItem(icon: Icon(Icons.category), label: "Categories"),
-                BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.category), label: "Categories"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.shopping_cart), label: "Cart"),
                 BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
               ],
               selectedItemColor: Colors.red,

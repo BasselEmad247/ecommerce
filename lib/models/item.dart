@@ -1,32 +1,32 @@
 class Item {
-  final int id;
-  final String name;
-  final String title;
-  final int category_id;
-  final String description;
-  final int price;
-  final int discount;
-  final String discount_type;
-  final String currency;
-  final int in_stock;
-  final String avatar;
-  final int price_final;
-  final String price_final_text;
+  var id;
+  var name;
+  var title;
+  var category_id;
+  var description;
+  var price;
+  var discount;
+  var discount_type;
+  var currency;
+  var in_stock;
+  var avatar;
+  var price_final;
+  var price_final_text;
 
   Item({
-    required this.id,
-    required this.name,
-    required this.title,
-    required this.category_id,
-    required this.description,
-    required this.price,
-    required this.discount,
-    required this.discount_type,
-    required this.currency,
-    required this.in_stock,
-    required this.avatar,
-    required this.price_final,
-    required this.price_final_text,
+    this.id,
+    this.name,
+    this.title,
+    this.category_id,
+    this.description,
+    this.price,
+    this.discount,
+    this.discount_type,
+    this.currency,
+    this.in_stock,
+    this.avatar,
+    this.price_final,
+    this.price_final_text,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
