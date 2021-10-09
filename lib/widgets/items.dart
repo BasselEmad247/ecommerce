@@ -1,11 +1,11 @@
-import 'package:ecommerce/models/item.dart';
+import 'package:ecommerce/models/product.dart';
 import 'package:flutter/material.dart';
 
 class Items extends StatelessWidget {
-  List<Item> item;
+  List<Product> product;
   int index;
 
-  Items(this.item, this.index);
+  Items(this.product, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +25,13 @@ class Items extends StatelessWidget {
               height: 10,
             ),
             Image.network(
-              item.elementAt(index).avatar,
+              product.elementAt(index).avatar,
               height: 80,
             ),
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  item.elementAt(index).title.toString(),
+                  product.elementAt(index).title.toString(),
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
@@ -42,7 +42,7 @@ class Items extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  item.elementAt(index).description,
+                  product.elementAt(index).description,
                   overflow: TextOverflow.ellipsis,
                 )),
             Row(
@@ -52,8 +52,8 @@ class Items extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    print("Item with id: " +
-                        item.elementAt(index).id.toString() +
+                    print("Product with id: " +
+                        product.elementAt(index).id.toString() +
                         " has been pressed!");
                   },
                   child: Container(
@@ -72,7 +72,7 @@ class Items extends StatelessWidget {
                   width: 70,
                 ),
                 Text(
-                  item.elementAt(index).price.toString() + " EGP",
+                  product.elementAt(index).price.toString() + " EGP",
                   style: const TextStyle(
                       color: Colors.red, fontWeight: FontWeight.bold),
                 ),

@@ -1,4 +1,4 @@
-import 'package:ecommerce/models/item.dart';
+import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/services/http.dart';
 import 'package:ecommerce/widgets/items.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +8,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Item>>(
-      future: http.fetchItems(),
+    return FutureBuilder<List<Product>>(
+      future: http.fetchProducts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(

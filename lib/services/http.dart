@@ -1,24 +1,24 @@
 import 'dart:convert';
 
 import 'package:ecommerce/models/category.dart';
-import 'package:ecommerce/models/item.dart';
+import 'package:ecommerce/models/product.dart';
 import 'package:http/http.dart' as http;
 
 class Http {
-  String allItems = "https://retail.amit-learning.com/api/products/";
+  String allProducts = "https://retail.amit-learning.com/api/products/";
   String allCategories = "https://retail.amit-learning.com/api/categories/";
 
-  Future<List<Item>> fetchItems() async {
-    final response = await http.get(Uri.parse(allItems));
+  Future<List<Product>> fetchProducts() async {
+    final response = await http.get(Uri.parse(allProducts));
 
     if (response.statusCode == 200) {
-      List<dynamic> itemsJson = jsonDecode(response.body)["products"];
+      List<dynamic> productsJson = jsonDecode(response.body)["products"];
 
-      List<Item> items = itemsModel(itemsJson);
+      List<Product> products = productsModel(productsJson);
 
-      return items;
+      return products;
     } else {
-      throw Exception('Failed to load items');
+      throw Exception('Failed to load products');
     }
   }
 
@@ -36,17 +36,17 @@ class Http {
     }
   }
 
-  Future<Item> fetchItem(int id) async {
-    final response = await http.get(Uri.parse(allItems + id.toString()));
+  Future<Product> fetchProduct(int id) async {
+    final response = await http.get(Uri.parse(allProducts + id.toString()));
 
     if (response.statusCode == 200) {
-      dynamic itemJson = jsonDecode(response.body)["product"];
+      dynamic productJson = jsonDecode(response.body)["product"];
 
-      Item item = itemModel(itemJson);
+      Product product = productModel(productJson);
 
-      return item;
+      return product;
     } else {
-      throw Exception('Failed to load item');
+      throw Exception('Failed to load product');
     }
   }
 
@@ -64,10 +64,10 @@ class Http {
     }
   }
 
-  List<Item> itemsModel(List<dynamic> itemsJson) {
-    List<Item> items = [];
+  List<Product> productsModel(List<dynamic> productsJson) {
+    List<Product> products = [];
 
-    for (dynamic i in itemsJson) {
+    for (dynamic i in productsJson) {
       if (i["id"] == null ||
           i["title"] == null ||
           i["description"] == null ||
@@ -75,7 +75,7 @@ class Http {
           i["avatar"] == null) {
         continue;
       }
-      Item item = Item(
+      Product product = Product(
           id: i["id"],
           name: i["name"],
           title: i["title"],
@@ -90,9 +90,9 @@ class Http {
           price_final: i["price_final"],
           price_final_text: i["price_final_text"]);
 
-      items.add(item);
+      products.add(product);
     }
-    return items;
+    return products;
   }
 
   List<Category> categoriesModel(List<dynamic> categoriesJson) {
@@ -110,23 +110,23 @@ class Http {
     return categories;
   }
 
-  Item itemModel(dynamic itemJson) {
-    Item item = Item(
-        id: itemJson["id"],
-        name: itemJson["name"],
-        title: itemJson["title"],
-        category_id: itemJson["category_id"],
-        description: itemJson["description"],
-        price: itemJson["price"],
-        discount: itemJson["discount"],
-        discount_type: itemJson["discount_type"],
-        currency: itemJson["currency"],
-        in_stock: itemJson["in_stock"],
-        avatar: itemJson["avatar"],
-        price_final: itemJson["price_final"],
-        price_final_text: itemJson["price_final_text"]);
+  Product productModel(dynamic productJson) {
+    Product product = Product(
+        id: productJson["id"],
+        name: productJson["name"],
+        title: productJson["title"],
+        category_id: productJson["category_id"],
+        description: productJson["description"],
+        price: productJson["price"],
+        discount: productJson["discount"],
+        discount_type: productJson["discount_type"],
+        currency: productJson["currency"],
+        in_stock: productJson["in_stock"],
+        avatar: productJson["avatar"],
+        price_final: productJson["price_final"],
+        price_final_text: productJson["price_final_text"]);
 
-    return item;
+    return product;
   }
 
   Category categoryModel(dynamic categoryJson) {

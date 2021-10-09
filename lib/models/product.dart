@@ -1,4 +1,4 @@
-class Item {
+class Product {
   var id;
   var name;
   var title;
@@ -13,7 +13,7 @@ class Item {
   var price_final;
   var price_final_text;
 
-  Item({
+  Product({
     this.id,
     this.name,
     this.title,
@@ -29,8 +29,8 @@ class Item {
     this.price_final_text,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) {
-    return Item(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       id: json['id'],
       name: json['name'],
       title: json['title'],
