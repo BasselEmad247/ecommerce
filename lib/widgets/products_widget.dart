@@ -1,11 +1,11 @@
 import 'package:ecommerce/models/product.dart';
 import 'package:flutter/material.dart';
 
-class Items extends StatelessWidget {
+class ProductsWidget extends StatelessWidget {
   List<Product> product;
   int index;
 
-  Items(this.product, this.index);
+  ProductsWidget(this.product, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class Items extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  product.elementAt(index).title.toString(),
+                  product.elementAt(index).title.toString().replaceAll("  ", ""),
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
@@ -42,7 +42,7 @@ class Items extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  product.elementAt(index).description,
+                  product.elementAt(index).description.replaceAll("  ", ""),
                   overflow: TextOverflow.ellipsis,
                 )),
             Row(

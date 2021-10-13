@@ -1,6 +1,6 @@
-import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/models/category.dart';
 import 'package:ecommerce/services/http.dart';
-import 'package:ecommerce/widgets/items.dart';
+import 'package:ecommerce/widgets/categories_widget.dart';
 import 'package:flutter/material.dart';
 
 class Categories extends StatelessWidget {
@@ -8,8 +8,8 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Product>>(
-      future: http.fetchProducts(),
+    return FutureBuilder<List<Category>>(
+      future: http.fetchCategories(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -19,7 +19,7 @@ class Categories extends StatelessWidget {
               children: List.generate(
                 snapshot.data!.length,
                     (index) {
-                  return Items(snapshot.data!, index);
+                  return CategoriesWidget(snapshot.data!, index);
                 },
               ),
             ),

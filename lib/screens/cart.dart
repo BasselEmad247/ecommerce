@@ -1,6 +1,6 @@
 import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/services/http.dart';
-import 'package:ecommerce/widgets/items.dart';
+import 'package:ecommerce/widgets/products_widget.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatelessWidget {
@@ -19,7 +19,7 @@ class Cart extends StatelessWidget {
               children: List.generate(
                 snapshot.data!.length,
                     (index) {
-                  return Items(snapshot.data!, index);
+                  return ProductsWidget(snapshot.data!, index);
                 },
               ),
             ),
