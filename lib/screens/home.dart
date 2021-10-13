@@ -1,6 +1,7 @@
 import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/screens/product_information.dart';
 import 'package:ecommerce/services/http.dart';
-import 'package:ecommerce/widgets/items.dart';
+import 'package:ecommerce/widgets/products_widget.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -19,7 +20,18 @@ class Home extends StatelessWidget {
               children: List.generate(
                 snapshot.data!.length,
                 (index) {
-                  return Items(snapshot.data!, index);
+                  return InkWell(
+                      onTap: () {
+                        print("Product with id: " +
+                            snapshot.data!.elementAt(index).id.toString() +
+                            " has been pressed!");
+
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return ProductInformation(snapshot.data!.elementAt(index));
+                        }));
+                      },
+                      child: ProductsWidget(snapshot.data!, index));
                 },
               ),
             ),
