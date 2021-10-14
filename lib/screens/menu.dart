@@ -1,6 +1,4 @@
-import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/services/http.dart';
-import 'package:ecommerce/widgets/products_widget.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatelessWidget {
@@ -9,7 +7,10 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Ecommerce App", style: TextStyle(fontSize: 25, color: Colors.red),),
+      child: Text(
+        "Ecommerce App",
+        style: TextStyle(fontSize: 25, color: Colors.red),
+      ),
     );
   }
 }

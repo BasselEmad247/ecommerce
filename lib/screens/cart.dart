@@ -18,7 +18,7 @@ class Cart extends StatelessWidget {
               crossAxisCount: 2,
               children: List.generate(
                 snapshot.data!.length,
-                    (index) {
+                (index) {
                   return ProductsWidget(snapshot.data!, index);
                 },
               ),

@@ -13,10 +13,11 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(
-      title: Text(categoryName),
-      backgroundColor: Colors.red,
-    ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(categoryName),
+        backgroundColor: Colors.red,
+      ),
       body: FutureBuilder<List<Product>>(
         future: http.fetchCategory(categoryId),
         builder: (context, snapshot) {
@@ -27,18 +28,18 @@ class CategoryWidget extends StatelessWidget {
                 crossAxisCount: 2,
                 children: List.generate(
                   snapshot.data!.length,
-                      (index) {
+                  (index) {
                     return InkWell(
                         onTap: () {
                           print("Product with id: " +
                               snapshot.data!.elementAt(index).id.toString() +
                               " has been pressed!");
 
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (BuildContext context) {
-                                return ProductInformation(
-                                    snapshot.data!.elementAt(index));
-                              }));
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return ProductInformation(
+                                snapshot.data!.elementAt(index));
+                          }));
                         },
                         child: ProductsWidget(snapshot.data!, index));
                   },
@@ -47,13 +48,14 @@ class CategoryWidget extends StatelessWidget {
             );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
+          } else if (snapshot.hasData && snapshot.data!.length == 0) {
+            return Center(
+              child: Text(
+                "No products found!",
+                style: TextStyle(fontSize: 25, color: Colors.red),
+              ),
+            );
           }
-          else if (snapshot.hasData && snapshot.data!.length == 0)
-            {
-              return Center(
-                child: Text("No products found!", style: TextStyle(fontSize: 25, color: Colors.red),),
-              );
-            }
 
           return Center(child: const CircularProgressIndicator());
         },

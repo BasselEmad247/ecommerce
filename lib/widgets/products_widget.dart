@@ -31,10 +31,7 @@ class ProductsWidget extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  product
-                      .elementAt(index)
-                      .title
-                      .toString(),
+                  product.elementAt(index).title.toString(),
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),

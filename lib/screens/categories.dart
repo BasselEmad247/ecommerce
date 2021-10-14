@@ -18,7 +18,7 @@ class Categories extends StatelessWidget {
               crossAxisCount: 2,
               children: List.generate(
                 snapshot.data!.length,
-                    (index) {
+                (index) {
                   return CategoriesWidget(snapshot.data!, index);
                 },
               ),

@@ -22,7 +22,8 @@ class CategoriesWidget extends StatelessWidget {
 
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
-              return CategoryWidget(category.elementAt(index).id, category.elementAt(index).name);
+              return CategoryWidget(
+                  category.elementAt(index).id, category.elementAt(index).name);
             }));
           },
           child: Container(
@@ -41,10 +42,7 @@ class CategoriesWidget extends StatelessWidget {
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.6), BlendMode.dstATop),
                       child: Text(
-                        category
-                            .elementAt(index)
-                            .name
-                            .toString(),
+                        category.elementAt(index).name.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25,
