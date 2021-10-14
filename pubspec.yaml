@@ -38,6 +38,7 @@ dependencies:
   flutter_bloc: ^7.3.0
   sqflite: ^2.0.0+4
   http:
+  email_validator:
 
 dev_dependencies:
   flutter_test:

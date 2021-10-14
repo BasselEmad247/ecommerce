@@ -16,24 +16,28 @@ class Ecommerce extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           EcommerceCubit cubit = EcommerceCubit.get(context);
-          return Scaffold(
-            key: scaffoldKey,
-            body: cubit.screens[cubit.index],
-            bottomNavigationBar: BottomNavigationBar(
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.category), label: "Categories"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart), label: "Cart"),
-                BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
-              ],
-              selectedItemColor: Colors.red,
-              unselectedItemColor: Colors.grey,
-              currentIndex: cubit.index,
-              onTap: (index) {
-                cubit.changeIndex(index);
-              },
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              key: scaffoldKey,
+              body: cubit.screens[cubit.index],
+              bottomNavigationBar: BottomNavigationBar(
+                items: const [
+                  BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.category), label: "Categories"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.shopping_cart), label: "Cart"),
+                  BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
+                ],
+                selectedItemColor: Colors.red,
+                unselectedItemColor: Colors.grey,
+                currentIndex: cubit.index,
+                onTap: (index) {
+                  cubit.changeIndex(index);
+                },
+              ),
             ),
           );
         },

@@ -7,10 +7,7 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        "Ecommerce App",
-        style: TextStyle(fontSize: 25, color: Colors.red),
-      ),
+      child: Image.asset("images/logo.jpg"),
     );
   }
 }

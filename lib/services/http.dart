@@ -7,6 +7,18 @@ import 'package:http/http.dart' as http;
 class Http {
   String allProducts = "https://retail.amit-learning.com/api/products/";
   String allCategories = "https://retail.amit-learning.com/api/categories/";
+  String userLogin = "https://retail.amit-learning.com/api/login/";
+
+  void login(String email, String password) async {
+    final response = await http.post(Uri.parse(allProducts),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(<String, String>{
+          "email": email,
+          "password": password,
+        }));
+    print(response.body);
+    print(response.statusCode);
+  }
 
   Future<List<Product>> fetchProducts() async {
     final response = await http.get(Uri.parse(allProducts));
