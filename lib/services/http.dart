@@ -50,7 +50,7 @@ class Http {
     }
   }
 
-  Future<Category> fetchCategory(int id) async {
+  Future<List<Product>> fetchCategory(int id) async {
     final response = await http.get(Uri.parse(allCategories + id.toString()));
 
     if (response.statusCode == 200) {
@@ -58,7 +58,7 @@ class Http {
 
       Category category = categoryModel(categoryJson);
 
-      return category;
+      return category.products!;
     } else {
       throw Exception('Failed to load category');
     }
@@ -102,8 +102,11 @@ class Http {
       if (i["id"] == null || i["name"] == null || i["avatar"] == null) {
         continue;
       }
-      Category category =
-          Category(id: i["id"], name: i["name"], avatar: i["avatar"]);
+      Category category = Category(
+          id: i["id"],
+          name: i["name"],
+          avatar: i["avatar"],
+          products: i["products"]);
 
       categories.add(category);
     }
@@ -130,10 +133,20 @@ class Http {
   }
 
   Category categoryModel(dynamic categoryJson) {
+    List<Product> products = [];
+    for (var i in categoryJson["products"]) {
+      Product product = productModel(i);
+      if (product.id != null &&
+          product.title != null &&
+          product.description != null &&
+          product.price != null &&
+          product.avatar != null) products.add(product);
+    }
     Category category = Category(
         id: categoryJson["id"],
         name: categoryJson["name"],
-        avatar: categoryJson["avatar"]);
+        avatar: categoryJson["avatar"],
+        products: products);
     return category;
   }
 }
