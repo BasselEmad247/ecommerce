@@ -31,7 +31,10 @@ class ProductsWidget extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  product.elementAt(index).title.toString().replaceAll("  ", ""),
+                  product
+                      .elementAt(index)
+                      .title
+                      .toString(),
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
@@ -42,7 +45,7 @@ class ProductsWidget extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  product.elementAt(index).description.replaceAll("  ", ""),
+                  product.elementAt(index).description,
                   overflow: TextOverflow.ellipsis,
                 )),
             Row(

@@ -28,7 +28,8 @@ class Home extends StatelessWidget {
 
                         Navigator.push(context,
                             MaterialPageRoute(builder: (BuildContext context) {
-                          return ProductInformation(snapshot.data!.elementAt(index));
+                          return ProductInformation(
+                              snapshot.data!.elementAt(index));
                         }));
                       },
                       child: ProductsWidget(snapshot.data!, index));

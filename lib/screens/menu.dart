@@ -8,28 +8,8 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Product>>(
-      future: http.fetchProducts(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Container(
-            color: Colors.grey[400],
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(
-                snapshot.data!.length,
-                    (index) {
-                  return ProductsWidget(snapshot.data!, index);
-                },
-              ),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-
-        return Center(child: const CircularProgressIndicator());
-      },
+    return Center(
+      child: Text("Ecommerce App", style: TextStyle(fontSize: 25, color: Colors.red),),
     );
   }
 }
