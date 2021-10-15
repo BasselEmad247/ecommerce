@@ -1,3 +1,4 @@
+import 'package:ecommerce/screens/signup.dart';
 import 'package:ecommerce/services/http.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +34,13 @@ class _CartState extends State<Cart> {
               child: TextFormField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Email"
-                ),
+                    border: OutlineInputBorder(), hintText: "Email"),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "This field is required!";
+                  } else if (!EmailValidator.validate(value)) {
+                    return "Please enter a valid email";
                   }
-                  else if(EmailValidator.validate(value))
-                    {
-                      return "Please enter a valid email";
-                    }
                   return null;
                 },
               ),
@@ -59,7 +56,7 @@ class _CartState extends State<Cart> {
                 decoration: InputDecoration(
                   errorMaxLines: 3,
                   suffixIcon: IconButton(
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         obscureText = !obscureText;
                       });
@@ -67,18 +64,17 @@ class _CartState extends State<Cart> {
                     icon: Icon(Icons.remove_red_eye),
                   ),
                   border: OutlineInputBorder(),
-                    hintText: "Password",
+                  hintText: "Password",
                 ),
                 validator: (value) {
-                  String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                  String pattern =
+                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
                   RegExp regExp = new RegExp(pattern);
                   if (value == null || value.isEmpty) {
                     return "This field is required!";
+                  } else if (regExp.hasMatch(value) == false) {
+                    return "Password must contain 1 uppercase - 1 lowercase - 1 numeric number - 1 special character (common allow characters ( ! @ # \$ & * ~ ))";
                   }
-                  else if(regExp.hasMatch(value) == false)
-                    {
-                      return "Password must contain 1 uppercase - 1 lowercase - 1 numeric number - 1 special character (common allow characters ( ! @ # \$ & * ~ ))";
-                    }
                   return null;
                 },
               ),
@@ -92,8 +88,7 @@ class _CartState extends State<Cart> {
                 style: ElevatedButton.styleFrom(
                     textStyle: const TextStyle(fontSize: 20),
                     primary: Colors.red,
-                    minimumSize: Size(200, 40)
-                ),
+                    minimumSize: Size(200, 40)),
                 onPressed: () {
                   if (loginFormKey.currentState!.validate()) {
                     http.login(emailController.text, passwordController.text);
@@ -109,8 +104,12 @@ class _CartState extends State<Cart> {
               height: 10,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 print("SignUp pressed!");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return Signup();
+                }));
               },
               child: Text("Go SignUp"),
             )
