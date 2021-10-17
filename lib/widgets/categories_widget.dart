@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce/models/category.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class CategoriesWidget extends StatelessWidget {
       child: Stack(children: [
         InkWell(
           onTap: () {
-            print("Category with id: " +
+            log("Category with id: " +
                 category.elementAt(index).id.toString() +
                 " has been pressed!");
 

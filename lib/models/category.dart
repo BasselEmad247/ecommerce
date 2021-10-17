@@ -7,10 +7,10 @@ class Category {
   List<Product>? products;
 
   Category({
-    this.id,
-    this.name,
-    this.avatar,
-    this.products,
+    required this.id,
+    required this.name,
+    required this.avatar,
+    required this.products,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {

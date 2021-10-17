@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce/services/http.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,8 +22,10 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text("Signup"),
-        backgroundColor: Colors.red,),
+      appBar: AppBar(
+        title: Text("Signup"),
+        backgroundColor: Colors.red,
+      ),
       body: SafeArea(
         child: Form(
           key: signupFormKey,
@@ -39,9 +43,7 @@ class _SignupState extends State<Signup> {
                 child: TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Name"
-                  ),
+                      border: OutlineInputBorder(), hintText: "Name"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "This field is required!";
@@ -52,20 +54,17 @@ class _SignupState extends State<Signup> {
               ),
               SizedBox(
                 height: 30,
-              ),Container(
+              ),
+              Container(
                 width: 350,
                 child: TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Email"
-                  ),
+                      border: OutlineInputBorder(), hintText: "Email"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "This field is required!";
-                    }
-                    else if(!EmailValidator.validate(value))
-                    {
+                    } else if (!EmailValidator.validate(value)) {
                       return "Please enter a valid email";
                     }
                     return null;
@@ -83,7 +82,7 @@ class _SignupState extends State<Signup> {
                   decoration: InputDecoration(
                     errorMaxLines: 3,
                     suffixIcon: IconButton(
-                      onPressed: (){
+                      onPressed: () {
                         setState(() {
                           obscureText = !obscureText;
                         });
@@ -94,13 +93,12 @@ class _SignupState extends State<Signup> {
                     hintText: "Password",
                   ),
                   validator: (value) {
-                    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                    String pattern =
+                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
                     RegExp regExp = new RegExp(pattern);
                     if (value == null || value.isEmpty) {
                       return "This field is required!";
-                    }
-                    else if(regExp.hasMatch(value) == false)
-                    {
+                    } else if (regExp.hasMatch(value) == false) {
                       return "Password must contain 1 uppercase - 1 lowercase - 1 numeric number - 1 special character (common allow characters ( ! @ # \$ & * ~ ))";
                     }
                     return null;
@@ -116,27 +114,35 @@ class _SignupState extends State<Signup> {
                   style: ElevatedButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 20),
                       primary: Colors.red,
-                      minimumSize: Size(200, 40)
-                  ),
+                      minimumSize: Size(200, 40)),
                   onPressed: () async {
                     if (signupFormKey.currentState!.validate()) {
-                      final response = await http.register(nameController.text, emailController.text, passwordController.text);
-                      if(response == 201) {
+                      final response = await http.register(nameController.text,
+                          emailController.text, passwordController.text);
+                      if (response == 201) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Registered Successfully!", textAlign: TextAlign.center,)),
+                          const SnackBar(
+                              content: Text(
+                            "Registered Successfully!",
+                            textAlign: TextAlign.center,
+                          )),
                         );
                         Navigator.pop(context);
-                      }
-                      else if(response == 422)
-                        {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("The email has already been taken!", textAlign: TextAlign.center,)),
-                          );
-                        }
-                      else if(response == 301)
-                      {
+                      } else if (response == 422) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Server error!", textAlign: TextAlign.center,)),
+                          const SnackBar(
+                              content: Text(
+                            "The email has already been taken!",
+                            textAlign: TextAlign.center,
+                          )),
+                        );
+                      } else if (response == 301) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text(
+                            "Server error!",
+                            textAlign: TextAlign.center,
+                          )),
                         );
                       }
                     }
@@ -148,11 +154,14 @@ class _SignupState extends State<Signup> {
                 height: 10,
               ),
               InkWell(
-                onTap: (){
-                  print("Login pressed!");
+                onTap: () {
+                  log("Login pressed!");
                   Navigator.pop(context);
                 },
-                child: Text("Have an account ?\nGo Login", textAlign: TextAlign.center,),
+                child: Text(
+                  "Have an account ?\nGo Login",
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           ),

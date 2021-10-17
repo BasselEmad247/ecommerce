@@ -12,21 +12,23 @@ class Product {
   var avatar;
   var price_final;
   var price_final_text;
+  var userAmount;
 
   Product({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
     this.title,
-    this.category_id,
-    this.description,
-    this.price,
-    this.discount,
+    required this.category_id,
+    this.description = " ",
+    required this.price,
+    this.discount = 0,
     this.discount_type,
-    this.currency,
-    this.in_stock,
-    this.avatar,
-    this.price_final,
-    this.price_final_text,
+    this.currency = "EGP",
+    this.in_stock = 0,
+    required this.avatar,
+    required this.price_final,
+    required this.price_final_text,
+    this.userAmount = 0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,7 @@ class Product {
       avatar: json['avatar'],
       price_final: json['price_final'],
       price_final_text: json['price_final_text'],
+      userAmount: json['userAmount'],
     );
   }
 }

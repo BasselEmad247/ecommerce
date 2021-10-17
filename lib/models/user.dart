@@ -5,10 +5,10 @@ class User {
   var token;
 
   User({
-    this.id,
-    this.name,
-    this.email,
-    this.token,
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.token,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {

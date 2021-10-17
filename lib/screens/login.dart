@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:ecommerce/bloc/ecommerce_cubit.dart';
 import 'package:ecommerce/models/user.dart';
-import 'package:ecommerce/screens/home.dart';
+import 'package:ecommerce/screens/cart.dart';
 import 'package:ecommerce/screens/signup.dart';
 import 'package:ecommerce/services/http.dart';
 import 'package:email_validator/email_validator.dart';
@@ -8,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
+  static User? loggedInUser;
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -114,9 +118,10 @@ class _LoginState extends State<Login> {
                           const SnackBar(content: Text("Logged in Successfully!", textAlign: TextAlign.center,)),
                         );
                         final token = await http.loginToken(emailController.text, passwordController.text);
-                        User userResponse = await http.getUserDetails(token);
+                        Login.loggedInUser = await http.getUserDetails(token);
                         EcommerceCubit cubit = EcommerceCubit.get(context);
-                        cubit.screens[2] = Home();
+                        cubit.screens[2] = Cart(Login.loggedInUser);
+                        cubit.changeIndex(2);
                       }
                   }
                 },
@@ -128,7 +133,7 @@ class _LoginState extends State<Login> {
             ),
             InkWell(
               onTap: () {
-                print("SignUp pressed!");
+                log("SignUp pressed!");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (BuildContext context) {
                   return Signup();

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/screens/product_information.dart';
 import 'package:ecommerce/services/http.dart';
@@ -31,7 +33,7 @@ class CategoryWidget extends StatelessWidget {
                   (index) {
                     return InkWell(
                         onTap: () {
-                          print("Product with id: " +
+                          log("Product with id: " +
                               snapshot.data!.elementAt(index).id.toString() +
                               " has been pressed!");
 
