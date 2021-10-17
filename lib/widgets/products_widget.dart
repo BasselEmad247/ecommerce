@@ -68,8 +68,6 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                         widget.product.elementAt(widget.index).id.toString() +
                         " has been pressed!");
 
-                    EcommerceCubit cubit = EcommerceCubit.get(context);
-
                     if (Login.loggedInUser != null) {
                       final response = await http.addProduct(
                           Login.loggedInUser!.token,
@@ -100,7 +98,6 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                           textAlign: TextAlign.center,
                         )),
                       );
-                      cubit.changeIndex(2);
                     }
                   },
                   child: Container(
