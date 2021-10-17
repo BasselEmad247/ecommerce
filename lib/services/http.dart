@@ -2,37 +2,68 @@ import 'dart:convert';
 
 import 'package:ecommerce/models/category.dart';
 import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/models/user.dart';
 import 'package:http/http.dart' as http;
 
 class Http {
-  String allProducts = "https://retail.amit-learning.com/api/products/";
-  String allCategories = "https://retail.amit-learning.com/api/categories/";
+  String allProducts = "https://retail.amit-learning.com/api/products";
+  String allCategories = "https://retail.amit-learning.com/api/categories";
+  String category = "https://retail.amit-learning.com/api/categories/";
   String userLogin = "https://retail.amit-learning.com/api/login";
   String userRegister = "https://retail.amit-learning.com/api/register";
+  String getUser = "https://retail.amit-learning.com/api/user";
 
-  void login(String email, String password) async {
+  Future<int> loginStatus(String email, String password) async {
     final response = await http.post(Uri.parse(userLogin),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(<String, String>{
           "email": email,
           "password": password,
         }));
-    print(response.body);
-    print(response.statusCode);
+
+    return response.statusCode;
+  }
+
+  Future<String> loginToken(String email, String password) async {
+    final response = await http.post(Uri.parse(userLogin),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(<String, String>{
+          "email": email,
+          "password": password,
+        }));
+
+    String token = jsonDecode(response.body)["token"];
+
+    return token;
   }
 
   Future<int> register(String name, String email, String password) async {
     final response = await http.post(Uri.parse(userRegister),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(<String, String>{
+          "name": name,
           "email": email,
           "password": password,
-          "name": name,
         }));
-    print(response.body);
-    print(response.statusCode);
 
     return response.statusCode;
+  }
+
+  Future<User> getUserDetails(String token) async {
+    final response = await http.get(Uri.parse(getUser),
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token});
+
+    if (response.statusCode == 200) {
+      dynamic userJson = jsonDecode(response.body)["user"];
+
+      User user = userModel(userJson);
+      user.token = token;
+
+      return user;
+
+    } else {
+      throw Exception('Failed to get user details');
+    }
   }
 
   Future<List<Product>> fetchProducts() async {
@@ -78,7 +109,7 @@ class Http {
   }
 
   Future<List<Product>> fetchCategory(int id) async {
-    final response = await http.get(Uri.parse(allCategories + id.toString()));
+    final response = await http.get(Uri.parse(category + id.toString()));
 
     if (response.statusCode == 200) {
       dynamic categoryJson = jsonDecode(response.body)["category"];
@@ -175,5 +206,15 @@ class Http {
         avatar: categoryJson["avatar"],
         products: products);
     return category;
+  }
+
+  User userModel(dynamic userJson) {
+    User user = User(
+        id: userJson["id"],
+        name: userJson["name"],
+        email: userJson["email"],
+    );
+
+    return user;
   }
 }

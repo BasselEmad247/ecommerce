@@ -1,14 +1,18 @@
+import 'package:ecommerce/bloc/ecommerce_cubit.dart';
+import 'package:ecommerce/models/user.dart';
+import 'package:ecommerce/screens/home.dart';
 import 'package:ecommerce/screens/signup.dart';
 import 'package:ecommerce/services/http.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Cart extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  State<Cart> createState() => _CartState();
+  State<Login> createState() => _LoginState();
 }
 
-class _CartState extends State<Cart> {
+class _LoginState extends State<Login> {
   final Http http = Http();
   final loginFormKey = GlobalKey<FormState>();
   bool obscureText = true;
@@ -89,12 +93,31 @@ class _CartState extends State<Cart> {
                     textStyle: const TextStyle(fontSize: 20),
                     primary: Colors.red,
                     minimumSize: Size(200, 40)),
-                onPressed: () {
+                onPressed: () async {
                   if (loginFormKey.currentState!.validate()) {
-                    http.login(emailController.text, passwordController.text);
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   const SnackBar(content: Text('Processing Data')),
-                    // );
+                    final tokenResponse = await http.loginStatus(emailController.text, passwordController.text);
+                    if(tokenResponse == 301)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Server error!", textAlign: TextAlign.center,)),
+                        );
+                      }
+                    else if(tokenResponse == 401)
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Wrong email or password!", textAlign: TextAlign.center,)),
+                      );
+                    }
+                    else
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Logged in Successfully!", textAlign: TextAlign.center,)),
+                        );
+                        final token = await http.loginToken(emailController.text, passwordController.text);
+                        User userResponse = await http.getUserDetails(token);
+                        EcommerceCubit cubit = EcommerceCubit.get(context);
+                        cubit.screens[2] = Home();
+                      }
                   }
                 },
                 child: const Text("Login"),

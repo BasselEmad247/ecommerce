@@ -121,10 +121,9 @@ class _SignupState extends State<Signup> {
                   onPressed: () async {
                     if (signupFormKey.currentState!.validate()) {
                       final response = await http.register(nameController.text, emailController.text, passwordController.text);
-                      print(response);
                       if(response == 201) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Registered Successfully!")),
+                          const SnackBar(content: Text("Registered Successfully!", textAlign: TextAlign.center,)),
                         );
                         Navigator.pop(context);
                       }
@@ -134,6 +133,12 @@ class _SignupState extends State<Signup> {
                             const SnackBar(content: Text("The email has already been taken!", textAlign: TextAlign.center,)),
                           );
                         }
+                      else if(response == 301)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Server error!", textAlign: TextAlign.center,)),
+                        );
+                      }
                     }
                   },
                   child: const Text("Signup"),
