@@ -109,6 +109,26 @@ class Http {
     return response.statusCode;
   }
 
+  Future<int> removeAllProducts(String token) async {
+    List<Product> oldUserProducts = await userProducts(token);
+    dynamic lastResponse;
+
+    for (int i = 0; i < oldUserProducts.length; i++) {
+      final response = await http.put(
+          Uri.parse(addProductToUser + oldUserProducts[i].id.toString()),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: jsonEncode(<String, int>{
+            "amount": 0,
+          }));
+      lastResponse = response;
+    }
+
+    return lastResponse.statusCode;
+  }
+
   Future<List<Product>> fetchProducts() async {
     final response = await http.get(Uri.parse(allProducts));
 
