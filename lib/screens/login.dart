@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 60,
             ),
-            Image.asset("images/logo.jpg"),
+            Image.asset("assets/logo.jpg"),
             SizedBox(
               height: 50,
             ),

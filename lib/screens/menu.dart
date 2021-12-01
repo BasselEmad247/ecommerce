@@ -7,7 +7,7 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.asset("images/logo.jpg"),
+      child: Image.asset("assets/logo.jpg"),
     );
   }
 }

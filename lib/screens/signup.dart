@@ -35,7 +35,7 @@ class _SignupState extends State<Signup> {
                 SizedBox(
                   height: 40,
                 ),
-                Image.asset("images/logo.jpg"),
+                Image.asset("assets/logo.jpg"),
                 SizedBox(
                   height: 50,
                 ),
